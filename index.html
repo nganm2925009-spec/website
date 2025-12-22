@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Researcher Portfolio - Nhà Nghiên Cứu</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00f5ff;
+            --secondary: #bf00ff;
+            --accent: #ff006e;
+            --dark: #0a0a1a;
+            --darker: #050510;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        .font-tech {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(191, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(0, 245, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 0, 110, 0.1) 0%, transparent 60%),
+                var(--darker);
+        }
+
+        .bg-animated::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Glowing Effects */
+        .glow-cyan {
+            text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 40px var(--primary);
+        }
+
+        .glow-purple {
+            text-shadow: 0 0 10px var(--secondary), 0 0 20px var(--secondary), 0 0 40px var(--secondary);
+        }
+
+        .glow-pink {
+            text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(20, 20, 40, 0.9) 0%, rgba(10, 10, 30, 0.95) 100%);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 245, 255, 0.5);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.2), inset 0 0 30px rgba(0, 245, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        /* Profile Image */
+        .profile-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto;
+        }
+
+        .profile-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 3px solid transparent;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section Title */
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -34px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Skill Bar */
+        .skill-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            position: relative;
+            animation: skillLoad 1.5s ease-out;
+        }
+
+        @keyframes skillLoad {
+            from { width: 0; }
+        }
+
+        /* Navigation */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .profile-container {
+                width: 160px;
+                height: 160px;
+            }
+            .profile-img {
+                width: 150px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animated"></div>
+
+    <!-- Floating Particles -->
+    <div id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-opacity-90 backdrop-blur-lg" style="background: rgba(5, 5, 16, 0.9);">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="font-tech text-xl glow-cyan">
+                    <i class="fas fa-atom mr-2"></i>RESEARCHER
+                </a>
+                <div class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#about" class="nav-link">THÔNG TIN</a>
+                    <a href="#education" class="nav-link">HỌC TẬP</a>
+                    <a href="#work" class="nav-link">CÔNG VIỆC</a>
+                    <a href="#union" class="nav-link">ĐOÀN - HỘI</a>
+                    <a href="#skills" class="nav-link">KỸ NĂNG</a>
+                    <a href="#research" class="nav-link">NGHIÊN CỨU</a>
+                    <a href="#future" class="nav-link">ĐỊNH HƯỚNG</a>
+                </div>
+                <button id="mobileMenu" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileNav" class="fixed inset-0 z-40 hidden" style="background: rgba(5, 5, 16, 0.98);">
+        <div class="flex flex-col items-center justify-center h-full space-y-6 text-lg">
+            <a href="#about" class="nav-link mobile-link">THÔNG TIN</a>
+            <a href="#education" class="nav-link mobile-link">HỌC TẬP</a>
+            <a href="#work" class="nav-link mobile-link">CÔNG VIỆC</a>
+            <a href="#union" class="nav-link mobile-link">ĐOÀN - HỘI</a>
+            <a href="#skills" class="nav-link mobile-link">KỸ NĂNG</a>
+            <a href="#research" class="nav-link mobile-link">NGHIÊN CỨU</a>
+            <a href="#future" class="nav-link mobile-link">ĐỊNH HƯỚNG</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex items-center justify-center pt-20 px-4">
+        <div class="text-center">
+            <!-- ==================== CHỈNH SỬA ẢNH ĐẠI DIỆN TẠI ĐÂY ==================== -->
+            <!-- Thay đổi link ảnh trong src="" bằng link ảnh của bạn -->
+            <div class="profile-container mb-8">
+                <div class="profile-ring"></div>
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" 
+                     alt="Profile Photo" 
+                     class="profile-img"
+                     onerror="this.src='https://via.placeholder.com/200x200/0a0a1a/00f5ff?text=AVATAR'">
+            </div>
+            <!-- ==================== KẾT THÚC PHẦN ẢNH ==================== -->
+
+            <!-- ==================== CHỈNH SỬA TÊN VÀ CHỨC DANH ==================== -->
+            <h1 class="font-tech text-4xl md:text-6xl font-bold mb-4 glow-cyan">
+                NGUYỄN THỊ KIM NGÂN
+            </h1>
+            <p class="text-xl md:text-2xl text-purple-400 glow-purple mb-6">
+                Kỹ sư Quản lý tài nguyên và môi trường | Researcher
+            </p>
+            <p class="text-gray-400 max-w-2xl mx-auto mb-8">
+                "Nghiên cứu - Học hỏi - Tích lũy - Phát triển"
+            </p>
+            <!-- ==================== KẾT THÚC PHẦN TÊN ==================== -->
+
+            <div class="flex justify-center space-x-4">
+                <a href="#about" class="px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
+                    <i class="fas fa-arrow-down mr-2"></i>Khám Phá
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 1: Thông tin cá nhân -->
+    <section id="about" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-tech text-3xl md:text-4xl font-bold text-center mb-12">
+                <span class="section-title glow-cyan">
+                    <i class="fas fa-user-astronaut mr-3"></i>THÔNG TIN CÁ NHÂN
+                </span>
+            </h2>
+            <div class="card p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- ==================== CHỈNH SỬA THÔNG TIN CÁ NHÂN ==================== -->
+                    <div class="space-y-4">
+                        <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+                            <i class="fas fa-id-card text-cyan-400 text-xl w-10"></i>
+                            <div class="ml-4">
+                                <p class="text-gray-400 text-sm">Họ và tên</p>
+                                <p class="font-semibold text-lg">Nguyễn Thị Kim Ngân</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+                            <i class="fas fa-birthday-cake text-purple-400 text-xl w-10"></i>
+                            <div class="ml-4">
+                                <p class="text-gray-400 text-sm">Năm sinh</p>
+                                <p class="font-semibold text-lg">2003</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+                            <i class="fas fa-phone text-pink-400 text-xl w-10"></i>
+                            <div class="ml-4">
+                                <p class="text-gray-400 text-sm">Số điện thoại</p>
+                                <p class="font-semibold text-lg">0365 686 436</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+                            <i class="fas fa-envelope text-cyan-400 text-xl w-10"></i>
+                            <div class="ml-4">
+                                <p class="text-gray-400 text-sm">Email</p>
+                                <p class="font-semibold text-lg">Nganm2925009@gstudent.ctu.edu.vn</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+                            <i class="fas fa-flask text-purple-400 text-xl w-10"></i>
+                            <div class="ml-4">
+                                <p class="text-gray-400 text-sm">Chuyên ngành</p>
+                                <p class="font-semibold text-lg">Quản lý Tài nguyên và Môi trường</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+                            <i class="fas fa-building text-pink-400 text-xl w-10"></i>
+                            <div class="ml-4">
+                                <p class="text-gray-400 text-sm">Nơi công tác</p>
+                                <p class="font-semibold text-lg">Khoa Môi trường và Tài nguyên Thiên nhiên</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+                            <i class="fas fa-star text-yellow-400 text-xl w-10"></i>
+                            <div class="ml-4">
+                                <p class="text-gray-400 text-sm">Ngày kết nạp Đảng</p>
+                                <p class="font-semibold text-lg">25/10/2024</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+                            <i class="fas fa-map-marker-alt text-cyan-400 text-xl w-10"></i>
+                            <div class="ml-4">
+                                <p class="text-gray-400 text-sm">Địa chỉ</p>
+                                <p class="font-semibold text-lg">Đường 3/2, Phường Ninh Kiều, TPCT </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ==================== KẾT THÚC THÔNG TIN CÁ NHÂN ==================== -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Quá trình học tập -->
+    <section id="education" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-tech text-3xl md:text-4xl font-bold text-center mb-12">
+                <span class="section-title glow-purple">
+                    <i class="fas fa-graduation-cap mr-3"></i>QUÁ TRÌNH HỌC TẬP
+                </span>
+            </h2>
+
+            <div class="space-y-6">
+                <!-- ==================== CHỈNH SỬA QUÁ TRÌNH HỌC TẬP ==================== -->
+                <!-- Thêm hoặc xóa các card bên dưới để cập nhật -->
+                
+                <div class="card p-6">
+                    <div class="flex flex-col md:flex-row md:items-center gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center">
+                                <i class="fas fa-university text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="font-tech text-xl font-bold text-cyan-400">Kỹ sư chuyên ngành Quản lý Tài nguyên và Môi trường</h3>
+                            <p class="text-purple-400 font-semibold">Đại học Cần Thơ</p>
+                            <p class="text-gray-400 text-sm mt-1">
+                                <i class="fas fa-calendar-alt mr-2"></i>2021 – 2025
+                            </p>
+                            <p class="text-gray-300 mt-2">
+                                <span class="text-pink-400 font-semibold">GPA: 3.6/4.0</span>
+                            </p>
+                            <p class="text-gray-300 mt-2">
+                                <i class="fas fa-file-alt mr-2 text-cyan-400"></i>
+                                <strong>Luận văn:</strong> "Đánh giá diễn biến chất lượng nước mặt tại huyện Châu Phú, tỉnh An Giang giai đoạn 2020 - 2023"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-6">
+                    <div class="flex flex-col md:flex-row md:items-center gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                                <i class="fas fa-university text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="font-tech text-xl font-bold text-cyan-400">Thạc sĩ Quản lý Tài nguyên và Môi trường</h3>
+                            <p class="text-purple-400 font-semibold">Đại học Cần Thơ</p>
+                            <p class="text-gray-400 text-sm mt-1">
+                                <i class="fas fa-calendar-alt mr-2"></i>2025 – 20XX
+                            </p>
+                            <p class="text-gray-300 mt-2">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ==================== KẾT THÚC QUÁ TRÌNH HỌC TẬP ==================== -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Quá trình làm việc -->
+    <section id="work" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-tech text-3xl md:text-4xl font-bold text-center mb-12">
+                <span class="section-title glow-pink">
+                    <i class="fas fa-briefcase mr-3"></i>QUÁ TRÌNH LÀM VIỆC
+                </span>
+            </h2>
+
+            <div class="timeline">
+                <!-- ==================== CHỈNH SỬA QUÁ TRÌNH LÀM VIỆC ==================== -->
+                
+                <div class="timeline-item">
+                    <div class="card p-6">
+                        <div class="flex justify-between items-start flex-wrap gap-2 mb-3">
+                            <h3 class="font-tech text-xl font-bold text-cyan-400">Chuyên viên tư vấn</h3>
+                            <span class="px-3 py-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full text-sm text-cyan-400 border border-cyan-500/30">
+                                6/2025 - Hiện tại
+                            </span>
+                        </div>
+                        <p class="text-purple-400 font-semibold mb-2">
+                            <i class="fas fa-building mr-2"></i>Công ty TNHH Dịch vụ Công nghệ & Môi trường Tân Tiến
+                        </p>
+                        <p class="text-gray-300">
+                            Chuyên gia tư vấn hồ sơ pháp lý môi trường, phân tích dữ liệu chất lượng môi trường. 
+                            Thực hiện các hồ sơ môi trường: ĐTM. GPMT, ĐKMT, UPSCTD, BCCCBVMT,...
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="card p-6">
+                        <div class="flex justify-between items-start flex-wrap gap-2 mb-3">
+                            <h3 class="font-tech text-xl font-bold text-cyan-400">Chuyên viên</h3>
+                            <span class="px-3 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full text-sm text-purple-400 border border-purple-500/30">
+                                2/2025 – 4/2025
+                            </span>
+                        </div>
+                        <p class="text-purple-400 font-semibold mb-2">
+                            <i class="fas fa-building mr-2"></i>Công ty TNHH Môi trường NANO
+                        </p>
+                        <p class="text-gray-300">
+                            Chuyên gia tư vấn hồ sơ pháp lý môi trường, phân tích dữ liệu chất lượng môi trường. 
+                            Thực hiện các hồ sơ môi trường: ĐTM. GPMT, ĐKMT, UPSCTD, BCCCBVMT,...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ==================== KẾT THÚC QUÁ TRÌNH LÀM VIỆC ==================== -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Quá trình công tác Đoàn - Hội -->
+    <section id="union" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-tech text-3xl md:text-4xl font-bold text-center mb-12">
+                <span class="section-title" style="text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;">
+                    <i class="fas fa-flag mr-3"></i>ĐOÀN TNCS HỒ CHÍ MINH & HỘI SINH VIÊN
+                </span>
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- ==================== CHỈNH SỬA CÔNG TÁC ĐOÀN - HỘI ==================== -->
+                
+                <!-- Đoàn TNCS -->
+                <div class="card p-6 border-l-4 border-l-red-500">
+                    <h3 class="font-tech text-xl font-bold text-red-400 mb-4">
+                        <i class="fas fa-star mr-2"></i>ĐOÀN TNCS HỒ CHÍ MINH
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white/5 rounded-lg">
+                            <p class="text-cyan-400 font-semibold">Ủy viên Ban chấp hành Đoàn khoa</p>
+                            <p class="text-gray-400 text-sm">2022 - 2024</p>
+                            <p class="text-gray-300 mt-2">Tổ chức các hoạt động đoàn viên, phong trào thanh niên tình nguyện, tập huấn cán bộ đoàn, hội thao truyền thống, hội diễn văn nghệ, hoạt động nghiên cứu, học thuật.</p>
+                        </div>
+                        <div class="p-4 bg-white/5 rounded-lg">
+                            <p class="text-cyan-400 font-semibold">Lớp trưởng Chi đoàn</p>
+                            <p class="text-gray-400 text-sm">2015 - 2017</p>
+                            <p class="text-gray-300 mt-2">Phụ trách công tác tuyên truyền và phát triển đoàn viên, quản lý và theo dõi tiến độ học tập của từng thành viên.</p>
+                        </div>
+                        <div class="p-4 bg-white/5 rounded-lg">
+                            <p class="text-cyan-400 font-semibold">Phó trưởng Khối ngành Quản lý môi trường</p>
+                            <p class="text-gray-400 text-sm">2022 - 2023</p>
+                            <p class="text-gray-300 mt-2">Tổ chức hoạt động tình nguyện, văn nghệ, thể thao, kết nối, hỗ trợ sinh viên cùng ngành học tập, nghiên cứu và hoạt động.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hội Sinh viên -->
+                <div class="card p-6 border-l-4 border-l-blue-500">
+                    <h3 class="font-tech text-xl font-bold text-blue-400 mb-4">
+                        <i class="fas fa-users mr-2"></i>HỘI SINH VIÊN VIỆT NAM
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white/5 rounded-lg">
+                            <p class="text-purple-400 font-semibold">Chi hội trưởng CHSV Châu Phú – Tân Châu</p>
+                            <p class="text-gray-400 text-sm">2022 - 2023</p>
+                            <p class="text-gray-300 mt-2">Điều hành hoạt động Hội, tổ chức các sự kiện chi hội sinh viên.</p>
+                        </div>
+                        <div class="p-4 bg-white/5 rounded-lg">
+                            <p class="text-purple-400 font-semibold">Trưởng CLB văn nghệ CHSV Châu Phú – Tân Châu</p>
+                            <p class="text-gray-400 text-sm">2022 - 2023</p>
+                            <p class="text-gray-300 mt-2">Thành lập và dẫn dắt câu lạc bộ hoạt động và tổ chức sân chơi cho sinh viên.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- ==================== KẾT THÚC CÔNG TÁC ĐOÀN - HỘI ==================== -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Kỹ năng -->
+    <section id="skills" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-tech text-3xl md:text-4xl font-bold text-center mb-12">
+                <span class="section-title glow-cyan">
+                    <i class="fas fa-cogs mr-3"></i>KỸ NĂNG
+                </span>
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- ==================== CHỈNH SỬA KỸ NĂNG ==================== -->
+                
+                <!-- Kỹ năng chuyên môn -->
+                <div class="card p-6">
+                    <h3 class="font-tech text-xl font-bold text-cyan-400 mb-6">
+                        <i class="fas fa-laptop-code mr-2"></i>Kỹ năng chuyên môn
+                    </h3>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Python & Machine Learning</span>
+                                <span class="text-cyan-400">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Data Analysis & Big Data</span>
+                                <span class="text-cyan-400">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Deep Learning & Neural Networks</span>
+                                <span class="text-cyan-400">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Research & Academic Writing</span>
+                                <span class="text-cyan-400">92%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 92%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Statistical Analysis</span>
+                                <span class="text-cyan-400">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kỹ năng mềm -->
+                <div class="card p-6">
+                    <h3 class="font-tech text-xl font-bold text-purple-400 mb-6">
+                        <i class="fas fa-users-cog mr-2"></i>Kỹ năng xã hội
+                    </h3>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Thuyết trình & Trình bày</span>
+                                <span class="text-purple-400">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%; background: linear-gradient(90deg, #bf00ff, #ff006e);"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Lãnh đạo & Quản lý nhóm</span>
+                                <span class="text-purple-400">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%; background: linear-gradient(90deg, #bf00ff, #ff006e);"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Giao tiếp & Đàm phán</span>
+                                <span class="text-purple-400">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%; background: linear-gradient(90deg, #bf00ff, #ff006e);"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Tiếng Anh học thuật</span>
+                                <span class="text-purple-400">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%; background: linear-gradient(90deg, #bf00ff, #ff006e);"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span>Tư duy phản biện</span>
+                                <span class="text-purple-400">92%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 92%; background: linear-gradient(90deg, #bf00ff, #ff006e);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ==================== KẾT THÚC KỸ NĂNG ==================== -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Công trình nghiên cứu -->
+    <section id="research" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-tech text-3xl md:text-4xl font-bold text-center mb-12">
+                <span class="section-title glow-purple">
+                    <i class="fas fa-microscope mr-3"></i>CÔNG TRÌNH NGHIÊN CỨU
+                </span>
+            </h2>
+
+            <!-- ==================== CHỈNH SỬA CÔNG TRÌNH NGHIÊN CỨU ==================== -->
+            
+            <!-- Chủ nhiệm đề tài -->
+            <div class="mb-10">
+                <h3 class="font-tech text-2xl text-cyan-400 mb-6">
+                    <i class="fas fa-crown mr-2"></i>Chủ nhiệm đề tài
+                </h3>
+                <div class="space-y-4">
+                    <div class="card p-6 hover:border-cyan-400">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-book-open text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">
+                                    "Đánh giá mức độ ô nhiễm và mức sẵn lòng chi trả cho khả năng làm sạch nước ở một số kênh và hồ vùng nội ô Cần Thơ"
+                                </h4>
+                                <p class="text-gray-400 text-sm mb-2">
+                                    <i class="fas fa-calendar mr-2"></i>2024 | Đồng nghiên cứu
+                                </p>
+                                <p class="text-gray-300">
+                                    Khảo sát và đánh giá mức sẵn lòng chi trả để lắp đặt và sử dụng pin năng lượng mặt trời tại thành phố Cần Thơ.
+                                </p>
+
+            <!—Bài báo khoa học-->
+            <div>
+                <h3 class="font-tech text-2xl text-purple-400 mb-6">
+                    <i class="fas fa-users mr-2"></i>Bài báo khoa học
+                </h3>
+                <div class="space-y-4">
+                    <div class="card p-6 hover:border-purple-400">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-pink-500 to-cyan-600 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-file-alt text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white mb-2">
+                                    "Hiện trạng quản lý chất thải điện tử tại các hộ gia đình thị xã Long Mỹ, tỉnh Hậu Giang"
+                                </h4>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            <!-- ==================== KẾT THÚC CÔNG TRÌNH NGHIÊN CỨU ==================== -->
+        </div>
+    </section>
+
+    <!-- Section 7 & 8: Định hướng và Mong muốn -->
+    <section id="future" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- ==================== CHỈNH SỬA ĐỊNH HƯỚNG NGHIÊN CỨU ==================== -->
+                
+                <!-- Định hướng nghiên cứu -->
+                <div class="card p-8">
+                    <h2 class="font-tech text-2xl font-bold mb-6">
+                        <span class="glow-cyan">
+                            <i class="fas fa-compass mr-3"></i>ĐỊNH HƯỚNG NGHIÊN CỨU
+                        </span>
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 p-4 bg-white/5 rounded-lg">
+                            <i class="fas fa-rocket text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-cyan-400">Xây dụng kết hoạch quản lý chất lượng nước hiệu quả</h4>
+                                <p class="text-gray-300 text-sm mt-1">Ứng dụng QGIS và Viễn thám trong quản lý chất lượng nước mặt tại Việt Nam.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 bg-white/5 rounded-lg">
+                            <i class="fas fa-brain text-purple-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-purple-400">Kết hợp nghiên cứu</h4>
+                                <p class="text-gray-300 text-sm mt-1">Liên kết các đơn vị chuyên môn Tài nguyên nước.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 bg-white/5 rounded-lg">
+                            <i class="fas fa-database text-pink-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-pink-400">Phát triển kết hoạch quản lý hiệu quả</h4>
+                                <p class="text-gray-300 text-sm mt-1">Xây dựng cơ sở dữ liệu toàn diện và ứng dụng hiệu quả.</p>
+                            </div>
+                        </div>
+                <!-- Mong muốn tương lai -->
+                <div class="card p-8">
+                    <h2 class="font-tech text-2xl font-bold mb-6">
+                        <span class="glow-purple">
+                            <i class="fas fa-star mr-3"></i>MONG MUỐN TƯƠNG LAI
+                        </span>
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3 p-4 bg-white/5 rounded-lg">
+                            <i class="fas fa-award text-yellow-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-yellow-400">Đạt học hàm Phó Giáo sư</h4>
+                                <p class="text-gray-300 text-sm mt-1">Phấn đấu đến năm 2030 hoàn thành kết hoạch quản lý chất lượng nước tại Việt Nam trong thời kỳ công nghiệp hóa, hiện đại hóa đất nước.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 bg-white/5 rounded-lg">
+                            <i class="fas fa-book text-cyan-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-cyan-400">Công bố quốc tế</h4>
+                                <p class="text-gray-300 text-sm mt-1">Đạt 5+ bài báo trên các tạp chí nước ngoài uy tín.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3 p-4 bg-white/5 rounded-lg">
+                            <i class="fas fa-users text-purple-400 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-purple-400">Xây dựng nhóm nghiên cứu</h4>
+                                <p class="text-gray-300 text-sm mt-1">Thành lập đội ngũ các nhà khoa học chuyên môn sâu về lĩnh vực Tài nguyên nước.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ==================== KẾT THÚC ĐỊNH HƯỚNG VÀ MONG MUỐN ==================== -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-4 border-t border-white/10">
+        <div class="max-w-6xl mx-auto text-center">
+            <div class="flex justify-center space-x-6 mb-6">
+                <!-- ==================== CHỈNH SỬA LIÊN KẾT MẠNG XÃ HỘI ==================== -->
+                <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-cyan-500/30 hover:text-cyan-400 transition-all">
+                    <i class="Email: Nganm2925009@gstudent.ctu.edu.vn"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-purple-500/30 hover:text-purple-400 transition-all">
+                    <i class="Hotline: 0365 686 436"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-500/30 hover:text-blue-400 transition-all">
+                    <i class="facebook: Kim Ngân"></i>
+                </a>
+                <a href="#" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-pink-500/30 hover:text-pink-400 transition-all">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:email@example.com" class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-cyan-500/30 hover:text-cyan-400 transition-all">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <!-- ==================== KẾT THÚC LIÊN KẾT ==================== -->
+            </div>
+            <p class="text-gray-400 mb-2">
+                <i class="fas fa-code mr-2"></i>Thiết kế với <span class="text-pink-500">❤</span> cho Khoa học
+            </p>
+            <p class="text-gray-500 text-sm">
+                © 2024 Researcher Portfolio. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const colors = ['#00f5ff', '#bf00ff', '#ff006e'];
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Mobile menu toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        mobileMenu.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking links
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.add('hidden');
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(5, 5, 16, 0.98)';
+            } else {
+                nav.style.background = 'rgba(5, 5, 16, 0.9)';
+            }
+        });
+    </script>
+</body>
+</html>
